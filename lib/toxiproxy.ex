@@ -1,57 +1,61 @@
 defmodule Toxiproxy do
-  use Tesla
+  defmodule API do
+    @moduledoc false
 
-  plug Tesla.Middleware.BaseUrl, Application.get_env(:toxiproxy, :host)
-  plug Tesla.Middleware.JSON
+    use Tesla, only: [:get, :post, :delete]
 
-  adapter Application.get_env(:toxiproxy, :adapter)
+    plug Tesla.Middleware.BaseUrl, Application.get_env(:toxiproxy, :host)
+    plug Tesla.Middleware.JSON
+
+    adapter Application.get_env(:toxiproxy, :adapter)
+  end
 
   def list() do
-    get("/proxies") |> extract
+    API.get("/proxies") |> extract
   end
 
   def populate(proxies) do
-    post("populate", proxies) |> extract
+    API.post("populate", proxies) |> extract
   end
 
   def create(proxy) do
-    post("/proxies", proxy) |> extract
+    API.post("/proxies", proxy) |> extract
   end
 
   def update(proxy) do
-    post("/proxies/" <> proxy.name, proxy) |> extract
+    API.post("/proxies/" <> proxy.name, proxy) |> extract
   end
 
   def remove(proxy_name) do
-    delete("/proxies/" <> proxy_name) |> extract
+    API.delete("/proxies/" <> proxy_name) |> extract
   end
 
   def list_toxics(proxy_name) do
-    get("/proxies/#{proxy_name}/toxics") |> extract
+    API.get("/proxies/#{proxy_name}/toxics") |> extract
   end
 
   def create_toxic(proxy_name, toxic) do
-    post("/proxies/#{proxy_name}/toxics", toxic) |> extract
+    API.post("/proxies/#{proxy_name}/toxics", toxic) |> extract
   end
 
   def get_toxic(proxy_name, toxic_name) do
-    get("/proxies/#{proxy_name}/toxics/#{toxic_name}") |> extract
+    API.get("/proxies/#{proxy_name}/toxics/#{toxic_name}") |> extract
   end
 
   def update_toxic(proxy_name, toxic) do
-    post("/proxies/#{proxy_name}/toxics/#{toxic.name}", toxic) |> extract
+    API.post("/proxies/#{proxy_name}/toxics/#{toxic.name}", toxic) |> extract
   end
 
   def remove_toxic(proxy_name, toxic_name) do
-    delete("/proxies/#{proxy_name}/toxics/#{toxic_name}") |> extract
+    API.delete("/proxies/#{proxy_name}/toxics/#{toxic_name}") |> extract
   end
 
   def reset() do
-    post("/reset", "") |> extract
+    API.post("/reset", "") |> extract
   end
 
   def version() do
-    get("/version") |> extract
+    API.get("/version") |> extract
   end
 
   defp extract(%Tesla.Env{body: body, status: 200}), do: {:ok, body}
