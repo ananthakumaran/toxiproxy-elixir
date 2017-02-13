@@ -1,5 +1,7 @@
 # Toxiproxy
 
+[![Build Status](https://travis-ci.org/ananthakumaran/toxiproxy-elixir.svg?branch=master)](https://travis-ci.org/ananthakumaran/toxiproxy-elixir)
+
 elixir client for [toxiproxy](https://github.com/Shopify/toxiproxy)
 
 ## Installation
