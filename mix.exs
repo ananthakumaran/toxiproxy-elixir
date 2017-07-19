@@ -1,7 +1,7 @@
 defmodule Toxiproxy.Mixfile do
   use Mix.Project
 
-  @version "0.3.0"
+  @version "0.4.0"
 
   def project do
     [app: :toxiproxy,
@@ -21,7 +21,7 @@ defmodule Toxiproxy.Mixfile do
 
   defp deps do
     [
-      {:tesla, "~> 0.6.0"},
+      {:tesla, "~> 0.6"},
       {:poison, ">= 1.0.0"},
       {:hackney, "1.6.5", only: :test},
       {:mix_test_watch, "~> 0.3", only: :dev},
