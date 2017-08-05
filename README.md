@@ -1,6 +1,7 @@
 # Toxiproxy
 
 [![Build Status](https://travis-ci.org/ananthakumaran/toxiproxy-elixir.svg?branch=master)](https://travis-ci.org/ananthakumaran/toxiproxy-elixir)
+[![Hex.pm](https://img.shields.io/hexpm/v/toxiproxy.svg)](https://hex.pm/packages/toxiproxy)
 
 elixir client for [toxiproxy](https://github.com/Shopify/toxiproxy)
 
