@@ -4,10 +4,14 @@ defmodule Toxiproxy do
 
     use Tesla, only: [:get, :post, :delete]
 
-    plug Tesla.Middleware.BaseUrl, Application.get_env(:toxiproxy, :host, "http://127.0.0.1:8474")
-    plug Tesla.Middleware.JSON
+    plug(
+      Tesla.Middleware.BaseUrl,
+      Application.get_env(:toxiproxy, :host, "http://127.0.0.1:8474")
+    )
 
-    adapter Application.get_env(:toxiproxy, :adapter, Tesla.Adapter.Httpc)
+    plug(Tesla.Middleware.JSON)
+
+    adapter(Application.get_env(:toxiproxy, :adapter, Tesla.Adapter.Httpc))
   end
 
   def list() do
@@ -61,7 +65,10 @@ defmodule Toxiproxy do
   defp extract(%Tesla.Env{body: body, status: 200}), do: {:ok, body}
   defp extract(%Tesla.Env{body: body, status: 201}), do: {:ok, body}
   defp extract(%Tesla.Env{body: body, status: 204}), do: {:ok, body}
-  defp extract(%Tesla.Env{body: body, status: code}) when code in [400, 409, 404], do: {:error, safe_decode(body)}
+
+  defp extract(%Tesla.Env{body: body, status: code}) when code in [400, 409, 404],
+    do: {:error, safe_decode(body)}
+
   defp extract(result), do: {:error, result}
 
   defp safe_decode(body) when is_binary(body) do
@@ -70,5 +77,6 @@ defmodule Toxiproxy do
       {:error, _} -> body
     end
   end
+
   defp safe_decode(body), do: body
 end

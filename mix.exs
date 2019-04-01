@@ -4,15 +4,17 @@ defmodule Toxiproxy.Mixfile do
   @version "0.4.0"
 
   def project do
-    [app: :toxiproxy,
-     version: @version,
-     elixir: "~> 1.3",
-     build_embedded: Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
-     description: "Toxiproxy client",
-     package: package(),
-     docs: docs(),
-     deps: deps()]
+    [
+      app: :toxiproxy,
+      version: @version,
+      elixir: "~> 1.3",
+      build_embedded: Mix.env() == :prod,
+      start_permanent: Mix.env() == :prod,
+      description: "Toxiproxy client",
+      package: package(),
+      docs: docs(),
+      deps: deps()
+    ]
   end
 
   def application do
@@ -30,15 +32,19 @@ defmodule Toxiproxy.Mixfile do
   end
 
   defp package do
-    %{licenses: ["MIT"],
+    %{
+      licenses: ["MIT"],
       links: %{"Github" => "https://github.com/ananthakumaran/toxiproxy-elixir"},
-      maintainers: ["ananthakumaran@gmail.com"]}
+      maintainers: ["ananthakumaran@gmail.com"]
+    }
   end
 
   defp docs do
-    [source_url: "https://github.com/ananthakumaran/toxiproxy-elixir",
-     source_ref: "v#{@version}",
-     main: Toxiproxy,
-     extras: ["README.md"]]
+    [
+      source_url: "https://github.com/ananthakumaran/toxiproxy-elixir",
+      source_ref: "v#{@version}",
+      main: Toxiproxy,
+      extras: ["README.md"]
+    ]
   end
 end
