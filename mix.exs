@@ -23,7 +23,7 @@ defmodule Toxiproxy.Mixfile do
 
   defp deps do
     [
-      {:tesla, "~> 0.6"},
+      {:tesla, "~> 1.0"},
       {:poison, ">= 1.0.0"},
       {:hackney, "1.6.5", only: :test},
       {:mix_test_watch, "~> 0.3", only: :dev},
