@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 config :toxiproxy,
   host: "http://127.0.0.1:8474",
